@@ -4,10 +4,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,7 @@ public class StudentController {
 	@Autowired
 	private StudentRepository repo ;
 	
-	@PostMapping("/create-student")
+	@PostMapping(value="/create-student", consumes = { MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<Student>  createStudent(@Valid @RequestBody Student stu)
 	{
 		Student student = repo.save(stu);
@@ -37,7 +38,7 @@ public class StudentController {
 
 	}
 	
-	@GetMapping("/student-list")
+	@GetMapping( "/student-list")
    public List<Student> getList()
    {
 	   return (List<Student>)repo.findAll();
